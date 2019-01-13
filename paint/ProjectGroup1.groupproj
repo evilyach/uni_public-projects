@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{FBF93EF9-A8B2-4270-9ABE-DF0D8FC4DF16}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="PaintLike.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="E:\Downloads\Delphi_Paint\Project1.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PaintLike">
+        <MSBuild Projects="PaintLike.dproj"/>
+    </Target>
+    <Target Name="PaintLike:Clean">
+        <MSBuild Projects="PaintLike.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PaintLike:Make">
+        <MSBuild Projects="PaintLike.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Project1">
+        <MSBuild Projects="E:\Downloads\Delphi_Paint\Project1.dproj"/>
+    </Target>
+    <Target Name="Project1:Clean">
+        <MSBuild Projects="E:\Downloads\Delphi_Paint\Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project1:Make">
+        <MSBuild Projects="E:\Downloads\Delphi_Paint\Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PaintLike;Project1"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PaintLike:Clean;Project1:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PaintLike:Make;Project1:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
