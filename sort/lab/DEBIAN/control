@@ -1,0 +1,7 @@
+Package: pr-lab1
+Version: 1.0
+Maintainer: Chesalin Ilya <evilyach@protonmail.com>
+Architecture: all
+Section: science
+Description: Лабораторная работа 1-2
+Depends: qt5-base, qt5-tools, qtcreator, qt5-script
