@@ -1,0 +1,14 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>icons/appicon.png</file>
+    <file>icons/about.png</file>
+    <file>icons/add.png</file>
+    <file>icons/append.png</file>
+    <file>icons/circular.png</file>
+    <file>icons/clear.png</file>
+    <file>icons/create.png</file>
+    <file>icons/delete.png</file>
+    <file>icons/exit.png</file>
+    <file>icons/manual.png</file>
+</qresource>
+</RCC>
