@@ -1,0 +1,1 @@
+select min(dbo.Cars.Year) as "Minimal Year" from dbo.Cars

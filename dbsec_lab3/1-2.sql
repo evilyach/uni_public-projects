@@ -1,0 +1,1 @@
+select dbo.Masters.SecondName, dbo.Masters.Speciality from dbo.Masters

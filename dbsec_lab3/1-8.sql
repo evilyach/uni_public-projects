@@ -1,0 +1,1 @@
+select max(dbo.Cars.Year) as "Maximal Year" from dbo.Cars

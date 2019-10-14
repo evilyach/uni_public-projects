@@ -1,0 +1,1 @@
+select dbo.Masters.SecondName, dbo.Masters.WorkExperience * 12 as "Work Experience in Months" from dbo.Masters

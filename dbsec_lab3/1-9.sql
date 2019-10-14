@@ -1,0 +1,1 @@
+select count(dbo.Cars.CarID) as "Cars in Service" from dbo.Cars

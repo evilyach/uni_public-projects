@@ -1,0 +1,1 @@
+select avg(dbo.Masters.WorkExperience) as "Average Work Experience" from dbo.Masters

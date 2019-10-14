@@ -1,0 +1,1 @@
+select dbo.Cars.Brand, dbo.getQuantityByBrand(dbo.Cars.Brand) as Quantity from dbo.Cars;
