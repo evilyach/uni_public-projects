@@ -9,20 +9,24 @@ class Filter : public QObject
 
 public:
     typedef enum {
-        FK_3x3,
-        FK_5x5,
-        FK_7x7,
-        FK_9x9
+        FK_3x3_K1,
+        FK_3x3_K2,
+        FK_3x3_K3,
+        FK_5x5_K1,
+        FK_7x7_K1,
+        FK_9x9_K1
     } filter_kernel_t;
 
-    void lff_blur_apply(QImage *image, filter_kernel_t mode);
+    void lffBlurApply(QImage *image, filter_kernel_t mode);
 
 private:
-    double k[3][3] = {
-        {0.1, 0.1, 0.1},
-        {0.1, 0.2, 0.1},
-        {0.1, 0.1, 0.1},
-    };
+    inline int index(int width, int x, int y) const {
+        return x + width * y;
+    }
+
+    inline int mid(int val) const {
+        return val / 2;
+    }
 };
 
 #endif // FILTER_H
