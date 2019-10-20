@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -24,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>640</width>
-    <height>480</height>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -34,12 +34,97 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="ImageLabel">
         <property name="text">
          <string/>
         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Информация</string>
+        </property>
+        <widget class="QPushButton" name="ApplyButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>80</y>
+           <width>161</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Применить фильтр</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="ModeBox">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>161</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>3x3: центр с равномерным контуром</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3x3: степени 2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3x3: равномерный</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>5x5</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>7x7</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>9x9</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QLabel" name="InfoLabel">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>120</y>
+           <width>161</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -60,7 +145,7 @@
      <string>Файл</string>
     </property>
     <addaction name="OpenAction"/>
-    <addaction name="SaveAction"/>
+    <addaction name="SaveAsAction"/>
     <addaction name="separator"/>
     <addaction name="ExitAction"/>
    </widget>
@@ -68,12 +153,13 @@
     <property name="title">
      <string>Справка</string>
     </property>
+    <addaction name="InfoAction"/>
+    <addaction name="AboutAction"/>
    </widget>
    <widget class="QMenu" name="FilteringMenu">
     <property name="title">
      <string>Фильтрация</string>
     </property>
-    <addaction name="SelectFilterKernelAction"/>
     <addaction name="ApplyFilterAction"/>
    </widget>
    <addaction name="FileMenu"/>
@@ -92,35 +178,90 @@
     <bool>false</bool>
    </attribute>
    <addaction name="OpenAction"/>
-   <addaction name="SaveAction"/>
+   <addaction name="SaveAsAction"/>
    <addaction name="ExitAction"/>
+   <addaction name="separator"/>
+   <addaction name="ApplyFilterAction"/>
+   <addaction name="separator"/>
+   <addaction name="InfoAction"/>
+   <addaction name="AboutAction"/>
   </widget>
   <action name="OpenAction">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/icons8-opened-folder-100.png</normaloff>icons/icons8-opened-folder-100.png</iconset>
+   </property>
    <property name="text">
     <string>Открыть</string>
    </property>
-  </action>
-  <action name="SaveAction">
-   <property name="text">
-    <string>Сохранить как...</string>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
    </property>
   </action>
   <action name="ExitAction">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/icons8-exit-100.png</normaloff>icons/icons8-exit-100.png</iconset>
+   </property>
    <property name="text">
     <string>Выход</string>
    </property>
-  </action>
-  <action name="SelectFilterKernelAction">
-   <property name="text">
-    <string>Выбор ядра фильтра</string>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="ApplyFilterAction">
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/icons8-filter-100.png</normaloff>icons/icons8-filter-100.png</iconset>
+   </property>
    <property name="text">
     <string>Применить фильтр</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="InfoAction">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/icons8-info-100.png</normaloff>icons/icons8-info-100.png</iconset>
+   </property>
+   <property name="text">
+    <string>О программе</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
+  </action>
+  <action name="SaveAsAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/icons8-save-100.png</normaloff>icons/icons8-save-100.png</iconset>
+   </property>
+   <property name="text">
+    <string>Сохранить как...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="AboutAction">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/icons8-help-100.png</normaloff>icons/icons8-help-100.png</iconset>
+   </property>
+   <property name="text">
+    <string>Справка</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
  </widget>

@@ -1,10 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "filter.h"
+
 #include <QPixmap>
 #include <QMainWindow>
-
-#include "filter.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,10 +21,17 @@ public:
 private slots:
     void on_ExitAction_triggered();
     void on_OpenAction_triggered();
-
+    void on_SaveAsAction_triggered();
     void on_ApplyFilterAction_triggered();
+    void on_ApplyButton_clicked();
+    void on_ModeBox_currentIndexChanged(int index);
+    void on_InfoAction_triggered();
+
+    void on_AboutAction_triggered();
 
 private:
+    void apply();
+    Filter::filter_kernel_t getMode();
     void setKernelMode(Filter::filter_kernel_t mode);
 
     Ui::MainWindow *ui;
