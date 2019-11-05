@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QFile *file = new QFile("./Image7.RAS");
+    QFile *file = new QFile("./CHEM02.RAS");
     if (!file->open(QIODevice::ReadOnly)) {
         qDebug() << "Could not open file!";
         return;
@@ -34,4 +34,3 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
