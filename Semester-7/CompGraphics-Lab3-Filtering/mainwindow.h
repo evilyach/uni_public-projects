@@ -26,7 +26,6 @@ private slots:
     void on_ApplyButton_clicked();
     void on_ModeBox_currentIndexChanged(int index);
     void on_InfoAction_triggered();
-
     void on_AboutAction_triggered();
 
 private:

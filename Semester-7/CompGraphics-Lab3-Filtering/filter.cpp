@@ -2,6 +2,7 @@
 
 #include <QImage>
 #include <QColor>
+#include <QPainter>
 
 void Filter::lffBlurApply(QImage *image, filter_kernel_t mode)
 {
@@ -122,12 +123,17 @@ void Filter::lffBlurApply(QImage *image, filter_kernel_t mode)
 
             break;
         }
+
+        default:
+            return;
     }
 
     // Qt does not allow assigning pixel colors to monochrome images, it throws
     // an exception. That is why always I convert it to Color only to not have
     // a lot of ugly checks.
     image->convertTo(QImage::Format_ARGB32, Qt::ColorOnly);
+
+    QImage *new_image = new QImage(*image);
 
     for (int x = 0; x < image->width(); x++) {
         for (int y = 0; y < image->height(); y++) {
@@ -181,11 +187,17 @@ void Filter::lffBlurApply(QImage *image, filter_kernel_t mode)
             if (b < 0) b = 0;
             if (b > 255) b = 255;
 
-            image->setPixelColor(x, y, qRgba(static_cast<int>(r),
-                                             static_cast<int>(g),
-                                             static_cast<int>(b),
-                                             static_cast<int>(a)));
+            new_image->setPixelColor(x, y, qRgba(static_cast<int>(r),
+                                                 static_cast<int>(g),
+                                                 static_cast<int>(b),
+                                                 static_cast<int>(a)));
         }
     }
+
+    QPainter painter(image);
+    painter.drawImage(QPoint(0, 0), *new_image);
+    painter.end();
+
+    delete new_image;
 }
 
