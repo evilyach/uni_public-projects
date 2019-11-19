@@ -1,21 +1,25 @@
 #include "rasformat.h"
 
+#include <cstdlib>
 #include <QPixmap>
 #include <QFile>
 #include <QDebug>
 #include <QDataStream>
 #include <QException>
 
+
 QPixmap *RASFormat::load(QFile *file)
 {
+    /* Loading data from file into datastream */
     data = new QDataStream(file);
+
+    /* Reading header */
     *data >> magic;
 
     if (magic != 0x59a66a95) {
-        qDebug() << "File is not RAS format!";
+        qDebug() << "File is not RAS formatted!";
         return nullptr;
     }
-    QImage image;
 
     *data >> width;
     *data >> height;
@@ -25,16 +29,9 @@ QPixmap *RASFormat::load(QFile *file)
     *data >> mapType;
     *data >> mapLength;
 
-//    qDebug() << width;
-//    qDebug() << height;
-//    qDebug() << depth;
-//    qDebug() << length;
-//    qDebug() << type;
-//    qDebug() << mapType;
-//    qDebug() << mapLength;
+    qDebug() << depth;
 
-    rle = (type == 2);
-
+    /* Validating header */
     if (width < 1 or height < 1 or width > INT_MAX or height > INT_MAX or length > INT_MAX) {
         qDebug() << "Dimensions of RAS file are wrong!";
         return nullptr;
@@ -45,94 +42,64 @@ QPixmap *RASFormat::load(QFile *file)
         return nullptr;
     }
 
-    quint8 *bmp_data = new quint8[width * height * 4];
+    /* Preparing data structures */
+    QByteArray bmp_data(width * height * 4, Qt::Initialization());
 
     char *color_palette = new char[mapLength];
-    data->readBytes(color_palette, mapLength);
+    if (mapType > 0)
+        data->readRawData(color_palette, static_cast<int>(mapLength));
 
-    quint8 *scanline = nullptr;
+    quint8 *scanline = static_cast<quint8 *>(
+        malloc(sizeof(quint8) * static_cast<unsigned long>(width))
+    );
 
+    /* Parsing the image */
     try {
-        quint8 p = 0;
-        scanline = new quint8(static_cast<quint8>(width) + 1);
-
+        qint32 p = 0;
         for (qint32 y = 0; y < height; y++) {
             for (qint32 i = 0; i < width; i++) {
-                scanline[i] = static_cast<quint8>(readRawByte());
+                qint8 tmp = readByte();
+                scanline[i] = static_cast<quint8>(tmp);
             }
 
             if (width % 2 == 1) {
-                readRawByte();
+                readByte();
             }
 
             if (mapType > 0 and mapLength == 768) {
                 for (qint32 x = 0; x < width; x++) {
-                    bmp_data[p++] = static_cast<quint8>(color_palette[scanline[x] + 512]);
-                    bmp_data[p++] = static_cast<quint8>(color_palette[scanline[x] + 256]);
-                    bmp_data[p++] = static_cast<quint8>(color_palette[scanline[x]]);
+                    bmp_data.insert(p++, static_cast<char>(color_palette[scanline[x] + 512]));
+                    bmp_data.insert(p++, static_cast<char>(color_palette[scanline[x] + 256]));
+                    bmp_data.insert(p++, static_cast<char>(color_palette[scanline[x]]));
                     p++;
                 }
             } else {
                 for (qint32 x = 0; x < width; x++) {
-                    bmp_data[p++] = scanline[x];
-                    bmp_data[p++] = scanline[x];
-                    bmp_data[p++] = scanline[x];
+                    bmp_data.insert(p++, static_cast<char>(scanline[x]));
+                    bmp_data.insert(p++, static_cast<char>(scanline[x]));
+                    bmp_data.insert(p++, static_cast<char>(scanline[x]));
                     p++;
                 }
             }
         }
     } catch (QException e) {
-        qDebug() << "Could not read RAS file!";
+        qDebug() << "Could not read RAS file:" << e.what();
         return nullptr;
     }
 
-    qDebug() << "bmp_data" << bmp_data[1];
-
+    /* Placing previously parsed data onto pixmap */
     QPixmap *pixmap = new QPixmap(width, height);
-//    pixmap->loadFromData(bmp_data, sizeof(&bmp_data), nullptr, Qt::AutoColor);
+    pixmap->loadFromData(bmp_data, nullptr, Qt::AutoColor);
 
-    qDebug() << pixmap;
+    free(scanline);
 
     return pixmap;
 }
 
-qint8 RASFormat::readRawByte()
+
+qint8 RASFormat::readByte()
 {
-    data->readBytes(tmp, tmplen);
-
-    if (tmp == nullptr) {
-        return -1;
-    } else {
-        return static_cast<qint8>(tmp[0]);
-    }
-}
-
-int RASFormat::readByte()
-{
-    if (!rle) {
-        return readRawByte();
-    }
-
-    if (run_len > 0) {
-        run_index++;
-
-        if (run_index == run_len - 1) {
-            run_len = 0;
-        }
-    } else {
-        current = readRawByte();
-
-        if (current == 0x80) {
-            current = readRawByte();
-            if (current == 0) {
-                current = 0x80;
-            } else {
-                run_len = current + 1;
-                run_index = 0;
-                current = readRawByte();
-            }
-        }
-    }
-
-    return current;
+    qint8 tmp;
+    *data >> tmp;
+    return tmp;
 }

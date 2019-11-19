@@ -10,15 +10,12 @@ class RASFormat : public QObject
     Q_OBJECT
 
 public:
-    RASFormat() {}
     QPixmap *load(QFile *file);
 
 private:
-    qint8 readRawByte();
-    int readByte();
+    qint8 readByte();
 
     QDataStream *data;
-    bool rle;
 
     quint32 magic;
     qint32 width;
@@ -28,9 +25,6 @@ private:
     quint32 type;
     quint32 mapType;
     quint32 mapLength;
-
-    char *tmp;
-    uint tmplen = 1;
 
     int current = 0;
     int run_len = 0;
