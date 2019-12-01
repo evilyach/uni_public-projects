@@ -1,2 +1,4 @@
-select * from dbo.Masters
-where dbo.Masters.WorkExperience > 25 and dbo.Masters.WorkExperience < 50
+SELECT *
+FROM public."Masters"
+WHERE public."Masters"."WorkExperience" > 25 AND
+      public."Masters"."WorkExperience" < 50

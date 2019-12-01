@@ -1,1 +1,2 @@
-select count(dbo.Cars.CarID) as "Cars in Service" from dbo.Cars
+SELECT COUNT(public."Cars"."CarID") AS "Cars in Service"
+FROM public."Cars"

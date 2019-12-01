@@ -1,1 +1,2 @@
-select * from dbo.Masters
+SELECT *
+FROM public."Masters"

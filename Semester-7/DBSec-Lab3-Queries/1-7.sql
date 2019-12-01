@@ -1,1 +1,2 @@
-select min(dbo.Cars.Year) as "Minimal Year" from dbo.Cars
+SELECT MIN(public."Cars"."Year") AS "Minimal Year"
+FROM public."Cars"

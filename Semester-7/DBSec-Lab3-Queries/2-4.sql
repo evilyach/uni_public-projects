@@ -1,5 +1,5 @@
-select * from dbo.Masters
-where
-	dbo.Masters.SecondName like '%Поваринский%' or 
-	dbo.Masters.SecondName like '%Жмышенко%' or
-	dbo.Masters.SecondName like '%Альбертович%'
+SELECT *
+FROM public."Masters"
+WHERE public."Masters"."SecondName" LIKE 'РљРѕР»РµРЅРІР°Р»РѕРІ' OR
+      public."Masters"."SecondName" LIKE 'РљР°СЂРґР°РЅРѕРІ' OR
+      public."Masters"."SecondName" LIKE 'РўРѕСЂРјРѕР·СЏРєРёРЅ'

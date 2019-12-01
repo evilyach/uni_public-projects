@@ -1,2 +1,3 @@
-select * from dbo.Masters
-where dbo.Masters.WorkExperience is null
+SELECT *
+FROM public."Masters"
+WHERE public."Masters"."WorkExperience" IS NULL

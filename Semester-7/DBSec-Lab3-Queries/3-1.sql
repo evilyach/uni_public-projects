@@ -1,1 +1,4 @@
-select dbo.Cars.Brand, dbo.getQuantityByBrand(dbo.Cars.Brand) as Quantity from dbo.Cars;
+SELECT public."Cars"."Brand",
+       COUNT(public."Cars"."Brand") AS "Quantity"
+FROM public."Cars"
+GROUP BY public."Cars"."Brand"

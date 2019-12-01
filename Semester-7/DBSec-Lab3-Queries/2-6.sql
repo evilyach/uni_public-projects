@@ -1,2 +1,3 @@
-select * from dbo.Cars
-where dbo.Cars.Color is not null
+SELECT *
+FROM public."Cars"
+WHERE public."Cars"."Color" IS NOT NULL

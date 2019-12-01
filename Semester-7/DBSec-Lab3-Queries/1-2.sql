@@ -1,1 +1,2 @@
-select dbo.Masters.SecondName, dbo.Masters.Speciality from dbo.Masters
+SELECT public."Masters"."SecondName", public."Masters"."Speciality"
+FROM public."Masters"

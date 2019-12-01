@@ -1,1 +1,3 @@
-select dbo.Masters.SecondName, dbo.Masters.WorkExperience * 12 as "Work Experience in Months" from dbo.Masters
+SELECT public."Masters"."SecondName",
+       public."Masters"."WorkExperience" * 12 AS "Work Experience in Months"
+FROM public."Masters"

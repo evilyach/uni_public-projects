@@ -1,1 +1,3 @@
-select top 2 * from dbo.Cars
+SELECT *
+FROM public."Cars"
+LIMIT 2

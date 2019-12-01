@@ -1,2 +1,3 @@
-select * from dbo.Masters
-where dbo.Masters.WorkExperience < 50
+SELECT *
+FROM public."Masters"
+WHERE public."Masters"."WorkExperience" < 50
