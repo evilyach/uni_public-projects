@@ -1,0 +1,30 @@
+{
+  "name": "crypto-lab4-digitalsignature",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evilyach/university-projects.git"
+  },
+  "keywords": [
+    "crypto",
+    "rsa",
+    "digital",
+    "signature",
+    "documents"
+  ],
+  "author": "Ilya Chesalin <evilyach@protonmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/evilyach/university-projects/issues"
+  },
+  "homepage": "https://github.com/evilyach/university-projects#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
