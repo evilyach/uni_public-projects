@@ -23,7 +23,12 @@
 
   #public_key_text_area {
     width: 600px;
-    height: 300px;
+    height: 200px;
+  }
+
+  #encrypted_text_area {
+    width: 600px;
+    height: 200px;
   }
   </style>
 </head>
@@ -34,25 +39,29 @@
   <a href="/check">К получателю</a>
   <p>Текст документа:</p>
   <p><textarea name="plainTextArea" id="plain_text_area" cols="30" rows="10"></textarea></p>
-  <p><button type="submit" onclick="add()">Получить ключ</button></p>
+  <p><button type="submit" onclick="encrypt()">Получить ключ</button></p>
   <p>Открытый ключ:</p>
   <p><textarea name="publicKeyTextArea" id="public_key_text_area" cols="30" rows="10"></textarea></p>
+  <p>Шифротекст:</p>
+  <p><textarea name="encryptedTextArea" id="encrypted_text_area" cols="30" rows="10"></textarea></p>
 
   <script>
-    function add() {
+    function encrypt() {
       const xml = new XMLHttpRequest();
       const plainText = document.getElementById("plain_text_area");
-
-      console.log(plainText.value);
 
       xml.open("POST", "/getPublicKey", true);
       xml.setRequestHeader("Content-Type", "application/json");
       xml.onreadystatechange = () => {
         if (xml.readyState === XMLHttpRequest.DONE) {
-          document.getElementById("public_key_text_area").value = xml.responseText;
+          const obj = JSON.parse(xml.responseText);
+          document.getElementById("public_key_text_area").value = obj['key'];
+          document.getElementById("encrypted_text_area").value = obj['encrypted'];
         }
       }
-      xml.send(JSON.stringify({plainText: plainText.value}));
+      xml.send(JSON.stringify({
+        plainText: plainText.value
+      }));
     }
   </script>
 

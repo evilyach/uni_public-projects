@@ -23,7 +23,12 @@
 
   #public_key_text_area {
     width: 600px;
-    height: 300px;
+    height: 200px;
+  }
+
+  #encrypted_text_area {
+    width: 600px;
+    height: 200px;
   }
   </style>
 </head>
@@ -32,11 +37,35 @@
   <h1>Цифровая подпись</h1>
   <h2>Получатель</h2>
   <a href="/">К отправителю</a>
-  <p>Текст документа:</p>
-  <p><textarea name="plainTextArea" id="plain_text_area" cols="30" rows="10"></textarea></p>
   <p>Открытый ключ:</p>
   <p><textarea name="publicKeyTextArea" id="public_key_text_area" cols="30" rows="10"></textarea></p>
-  <p><input type="button" value="Проверить подлинность"></p>
+  <p>Шифротекст:</p>
+  <p><textarea name="encryptedTextArea" id="encrypted_text_area" cols="30" rows="10"></textarea></p>
+  <p><button name="checkPublicKeyButton" onclick="check()">Проверить подлинность</p></button>
+  <p>Текст документа:</p>
+  <p><textarea name="plainTextArea" id="plain_text_area" cols="30" rows="10"></textarea></p>
+
+  <script>
+      function check() {
+        const xml = new XMLHttpRequest();
+        const encryptedText = document.getElementById("encrypted_text_area");
+        const publicKey = document.getElementById("public_key_text_area");
+
+        xml.open("POST", "/checkPublicKey", true);
+        xml.setRequestHeader("Content-Type", "application/json");
+        xml.onreadystatechange = () => {
+          if (xml.readyState === XMLHttpRequest.DONE) {
+            document.getElementById("plain_text_area").value = xml.responseText;
+          }
+        }
+
+        xml.send(JSON.stringify({
+          encryptedText: encrypted_text_area.value,
+          publicKey: publicKey.value
+        }));
+      }
+    </script>
+
 </body>
 
 </html>
