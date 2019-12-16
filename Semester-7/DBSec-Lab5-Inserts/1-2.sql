@@ -1,0 +1,6 @@
+INSERT
+INTO "Masters"
+VALUES
+(
+  41
+)
