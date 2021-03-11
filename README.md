@@ -1,4 +1,4 @@
-# University Projects
+# 𝖚𝖓𝖎𝖛𝖊𝖗𝖘𝖎𝖙𝖞 𝖕𝖗𝖔𝖏𝖊𝖈𝖙𝖘
 
 This is a collection of my university projects (and one school project, my very first one). 
 
